@@ -1,0 +1,77 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyMDLh3/OOXAmn4z+7T6zDv+",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/arashhosseiniarash/Dataanalysis/blob/master/FP%20growth\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "KIoC_4zFdz43",
+        "colab_type": "code",
+        "colab": {}
+      },
+      "source": [
+        "import pandas as pd\n",
+        "from mlxtend.frequent_patterns import fpgrowth\n",
+        "from mlxtend.frequent_patterns import association_rules\n",
+        "df = pd.read_csv (r'C:\\Users\\arash\\Desktop\\association-rule-mining\\dataframe-python.csv')\n",
+        "df\n",
+        "print(df)\n",
+        "frequent_itemsets_fp=fpgrowth(df, min_support=0.2, use_colnames=True)\n",
+        "print(frequent_itemsets_fp)\n",
+        "rules_fp = association_rules(frequent_itemsets_fp, metric=\"confidence\", min_threshold=0.7)\n",
+        "print(rules_fp)\n",
+        "rules_fp\n"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "AhXNOLsyeBo3",
+        "colab_type": "text"
+      },
+      "source": [
+        "Notes:\n",
+        "\n",
+        "pip install pandas\n",
+        "pip install mlxtend\n",
+        "\n",
+        "\n",
+        "### If the dataset is not binomial this step code is needed ###\n",
+        "\n",
+        "from mlxtend.preprocessing import TransactionEncoder\n",
+        "\n",
+        "te = TransactionEncoder()\n",
+        "te_array = te.fit(dataset).transform(dataset)\n",
+        "df = pd.DataFrame(te_array, columns=te.columns_)\n",
+        "\n",
+        "\n",
+        "### If you need to see the complete results then this code is needed ###\n",
+        "pd.set_option(\"display.max_rows\", None, \"display.max_columns\", None)"
+      ]
+    }
+  ]
+}
